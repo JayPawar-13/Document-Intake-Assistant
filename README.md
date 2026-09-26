@@ -3,6 +3,7 @@
 An intelligent, full-stack conversational document intake application powered by Google's official **Gemini API** (`google-genai` SDK) and Pydantic structured outputs. It conducts intake interviews, extracts and validates structured state separately from conversation history, detects ambiguities and contradictions without silent overwrites, rejects irrelevant answers, and generates an executive, publication-grade **Personal Wishes Document** with live preview and downloadable PDF.
 
 🚀 Live Demo: https://document-intake-assistant-iy7b.vercel.app/
+
 The application is deployed with a Vercel frontend, Render FastAPI backend, MongoDB database, and Google Gemini API integration.
 
 ---
@@ -675,7 +676,8 @@ The generated document includes:
 
 ### 📥 View Sample PDF
 
-**[📄 View / Download Personal Wishes Document](sample-output/Personal-Wishes-Document.pdf)**
+[📄 View Sample Personal Wishes Document](sample-output/Personal_Wishes_Document.pdf)
+
 
 > **Note:** The sample document is provided for demonstration purposes. It is not a legally binding document and does not constitute legal advice.
 

@@ -63,12 +63,11 @@ app = FastAPI(
 # CORS CONFIGURATION
 # ============================================================
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://document-intake-assistant-iy7b.vercel.app",
-        "https://document-intake-assistant-iy7b-mscr28b1m.vercel.app",
-    ],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

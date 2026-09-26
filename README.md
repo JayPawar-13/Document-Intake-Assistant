@@ -2,6 +2,9 @@
 
 An intelligent, full-stack conversational document intake application powered by Google's official **Gemini API** (`google-genai` SDK) and Pydantic structured outputs. It conducts intake interviews, extracts and validates structured state separately from conversation history, detects ambiguities and contradictions without silent overwrites, rejects irrelevant answers, and generates an executive, publication-grade **Personal Wishes Document** with live preview and downloadable PDF.
 
+🚀 Live Demo: https://document-intake-assistant-iy7b.vercel.app/
+The application is deployed with a Vercel frontend, Render FastAPI backend, MongoDB database, and Google Gemini API integration.
+
 ---
 
 ## 🌟 Overview

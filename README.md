@@ -651,7 +651,7 @@ The built-in help interface explains how to interact with the assistant, correct
 
 The live document panel allows users to view the generated document while completing the intake process.
 
-![Live Document Preview](screenshots/08-live-document.png)
+[📄 View Sample Personal Wishes Document](sample-output/Personal_Wishes_Document.pdf)
 
 ---
 

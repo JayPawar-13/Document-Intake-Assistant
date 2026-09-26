@@ -1,7 +1,9 @@
 import logging
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from app.config import settings
 from app.database.mongodb import db_manager
 from app.api.routes_sessions import router as sessions_router
@@ -9,13 +11,18 @@ from app.api.routes_messages import router as messages_router
 from app.api.routes_state import router as state_router
 from app.api.routes_document import router as document_router
 from app.api.routes_health import router as health_router
-from app.utils.errors import AppException, app_exception_handler, general_exception_handler
+from app.utils.errors import (
+    AppException,
+    app_exception_handler,
+    general_exception_handler,
+)
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 )
+
 logger = logging.getLogger(__name__)
 
 
@@ -23,13 +30,17 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     """Lifecycle manager for MongoDB connection"""
     logger.info("Initializing Document Intake Assistant Backend...")
+
     try:
         await db_manager.connect()
         logger.info("Connected to MongoDB successfully.")
     except Exception as e:
         logger.error(f"Could not connect to MongoDB on startup: {e}")
-        logger.warning("Backend started in degraded database mode. Start MongoDB to enable persistence.")
-    
+        logger.warning(
+            "Backend started in degraded database mode. "
+            "Start MongoDB to enable persistence."
+        )
+
     yield
 
     logger.info("Shutting down Document Intake Assistant Backend...")
@@ -39,11 +50,18 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
-    description="Backend API for Document Intake Assistant — Conversational interview, structured state management, validation, and document generation.",
+    description=(
+        "Backend API for Document Intake Assistant — "
+        "Conversational interview, structured state management, "
+        "validation, and document generation."
+    ),
     lifespan=lifespan
 )
 
-from fastapi.middleware.cors import CORSMiddleware
+
+# ============================================================
+# CORS CONFIGURATION
+# ============================================================
 
 app.add_middleware(
     CORSMiddleware,
@@ -56,8 +74,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Exception handlers
 app.add_exception_handler(AppException, app_exception_handler)
+app.add_exception_handler(Exception, general_exception_handler)
+
 
 # Include API routers
 app.include_router(health_router)
@@ -79,4 +100,10 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=settings.DEBUG)
+
+    uvicorn.run(
+        "main:app",
+        host=settings.HOST,
+        port=settings.PORT,
+        reload=settings.DEBUG
+    )
